@@ -1,0 +1,4 @@
+<?xml version="12.8.1" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="lib" path="lib/mssql-jdbc-<version>.jar"/>
+</classpath>

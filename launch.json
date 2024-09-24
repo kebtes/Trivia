@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "CenterImagePanel",
+        "request": "launch",
+        "mainClass": "CenterImagePanel",
+        "projectName": "Trivia_a3c484cd"
+      },
+      {
+        "type": "java",
+        "name": "App",
+        "request": "launch",
+        "mainClass": "App",
+        "projectName": "Trivia_a3c484cd"
+      },
+      {
+        "type": "java",
+        "name": "Launch Application",
+        "request": "launch",
+        "mainClass": "com.example.Main",
+        "vmArgs": "-Djava.library.path=C:/Users/CompUser/Documents/mssql-jdbc_auth-12.8.1.x64.dll",
+        "preLaunchTask": "build"
+      }
+    ]
+  }
+  
