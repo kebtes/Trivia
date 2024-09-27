@@ -11,7 +11,9 @@ public class Quiz{
     QuestionDAOImpl questionDAO;
     PreferencesManager preference = new PreferencesManager();
 
+    @SuppressWarnings("unused")
     private LocalDateTime quizDate = LocalDateTime.now();
+    
     private List<Questions> quizQuestions = new ArrayList<>();
     private List<Player> quizPlayers = new ArrayList<>();
     private static int questionSizePerPerson;
@@ -77,10 +79,6 @@ public class Quiz{
     public static void addToCategory(Category category){
         availableCategories.add(category);
     }
-    
-    public LocalDateTime getQuizDate(){
-        return quizDate;
-    }
 
     public List<Questions> getQuizQuestions(){
         return quizQuestions;
@@ -88,10 +86,6 @@ public class Quiz{
 
     public List<Player> getQuizPlayers(){
         return quizPlayers;
-    }
-
-    public static int getQuizSize(){
-        return questionSizePerPerson;
     }
 
 }

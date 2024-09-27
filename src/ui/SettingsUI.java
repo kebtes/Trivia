@@ -112,7 +112,7 @@ public class SettingsUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (generalCategoryCBox.isSelected()) preferencesManager.setGeneralCategory(true);
-                else preferencesManager.setGeneralCategory(false);;
+                else preferencesManager.setGeneralCategory(false);
             }
 
         });
@@ -162,7 +162,7 @@ public class SettingsUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (mathCategoryCBox.isSelected()) preferencesManager.setMathCategory(true);
-                else preferencesManager.setMathCategory(false);;
+                else preferencesManager.setMathCategory(false);
 
             }
         });
@@ -185,7 +185,7 @@ public class SettingsUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (musicCategoryCBox.isSelected()) preferencesManager.setMusicCategory(true);
-                else preferencesManager.setMusicCategory(false);;
+                else preferencesManager.setMusicCategory(false);
 
             }
         });
