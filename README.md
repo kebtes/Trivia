@@ -1,4 +1,4 @@
-# Trivia Game (Java)
+# Trivia Game (Java) ---- CLASS PROJECT!
 
 This Trivia Game is developed in Java and features a user-friendly interface built with Java Swing. Python scripts fetch trivia questions, while Microsoft SQL Server (MSSQL) is employed for storing player information and related data.
 
