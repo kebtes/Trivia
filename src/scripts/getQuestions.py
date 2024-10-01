@@ -108,4 +108,4 @@ if __name__ == "__main__":
         response = getResponse(category)
         addToDataBase(response)
 
-    print(f"{_successes}/{totalCall} questions added!")
+    print(f"{successes}/{totalCall} questions added!")
