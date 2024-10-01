@@ -6,17 +6,18 @@ public class MultipleAnswerQuestion extends Questions {
     private List<String> questionChoices;
     private List<String> correctAnswers;
 
-    public MultipleAnswerQuestion(String questionText, String questionCategory, String questionType, List<String> questionChoices, List<String> correctAnswers){
+    public MultipleAnswerQuestion(String questionText, String questionCategory, String questionType,
+            List<String> questionChoices, List<String> correctAnswers) {
         super(questionText, questionCategory, questionType);
         this.correctAnswers = correctAnswers;
         this.questionChoices = questionChoices;
     }
 
-    public List<String> getCorrectAnswer(){
+    public List<String> getCorrectAnswer() {
         return correctAnswers;
     }
 
-    public List<String> getQuestionChoices(){
+    public List<String> getQuestionChoices() {
         return questionChoices;
     }
 

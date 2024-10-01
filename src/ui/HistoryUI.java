@@ -68,7 +68,7 @@ public class HistoryUI extends JPanel {
 
         // scrollbar properties
         UIManager.put("ScrollBar.width", 0);
-        
+
         JScrollPane scrollPane = new JScrollPane(playerCards);
         // // scrollPane.setBackground(Constants.GREEN_COLOR);
         // scrollPane.getViewport().setBackground(Constants.GREEN_COLOR);
@@ -76,7 +76,6 @@ public class HistoryUI extends JPanel {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBorder(null);
 
-        
         // Fetch history
         playerQuizHistoryDAO = new PlayerQuizHistoryDAOImpl();
         updateHistory();
@@ -94,10 +93,10 @@ public class HistoryUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 playerQuizHistoryDAO.clearHistory();
-                playerCards.removeAll(); 
-                updateHistory(); 
+                playerCards.removeAll();
+                updateHistory();
                 scrollPane.revalidate();
-                scrollPane.repaint(); 
+                scrollPane.repaint();
             }
         });
 
@@ -125,26 +124,26 @@ public class HistoryUI extends JPanel {
 
     public void updateHistory() {
         playerCards.removeAll();
-        
+
         List<List<String>> playerRecords = playerQuizHistoryDAO.getHistory();
-        int[] totalHeight = {0}; // To calculate total height for playerCards
-        
+        int[] totalHeight = { 0 }; // To calculate total height for playerCards
+
         for (List<String> record : playerRecords) {
             JPanel singleRecordPanel = new JPanel();
             singleRecordPanel.setLayout(null);
             singleRecordPanel.setBackground(Constants.GREEN_COLOR_2);
             singleRecordPanel.setPreferredSize(new Dimension(270, 40));
             singleRecordPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-            
+
             // record infos
             String playerName = record.get(0);
             String quizDate = record.get(2);
             String score = record.get(3);
             int questionsAsked = Integer.parseInt(record.get(1)) * preferencesManager.getQuestionSize();
-            
-            JLabel[] playerNameLabel = {new JLabel(playerName)};
 
-            boolean[] isExpanded = {false};
+            JLabel[] playerNameLabel = { new JLabel(playerName) };
+
+            boolean[] isExpanded = { false };
             singleRecordPanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -155,8 +154,8 @@ public class HistoryUI extends JPanel {
 
                     // toggle the expanded state
                     isExpanded[0] = !isExpanded[0];
-                    
-                    if (isExpanded[0]){
+
+                    if (isExpanded[0]) {
                         // expand the panel
                         singleRecordPanel.setPreferredSize(new Dimension(270, 100));
                         totalHeight[0] += 60;
@@ -183,7 +182,7 @@ public class HistoryUI extends JPanel {
                                 updateNameTextField.setForeground(Constants.LIGHT_CREAM_COLOR);
                             };
                         });
-                                                 
+
                         updatePlayerButton = new JButton();
                         updatePlayerButton.setText("UPDATE PLAYER");
                         updatePlayerButton.setForeground(Constants.LIGHT_CREAM_COLOR);
@@ -194,11 +193,10 @@ public class HistoryUI extends JPanel {
                         updatePlayerButton.setBackground(Constants.GREEN_COLOR_2);
                         updatePlayerButton.setContentAreaFilled(false);
 
-                        
                         updatePlayerButton.addMouseListener(new MouseAdapter() {
                             public void mouseEntered(MouseEvent e) {
                                 updatePlayerButton.setForeground(Constants.LIGHT_GREEN_COLOR);
-                            };    
+                            };
 
                             public void mouseExited(MouseEvent e) {
                                 updatePlayerButton.setForeground(Constants.LIGHT_CREAM_COLOR);
@@ -210,13 +208,15 @@ public class HistoryUI extends JPanel {
                                 try {
                                     playerDAO = new PlayerDAOImpl();
                                     String updateName = updateNameTextField.getText().strip();
-                                    
+
                                     // check if player by the update name already exists in database
-                                    if (playerDAO.playerExists(updateName)) throw new PlayerAlreadyExistException();
+                                    if (playerDAO.playerExists(updateName))
+                                        throw new PlayerAlreadyExistException();
 
                                     // validate new name
-                                    if (!InputCheck.validateInputName(updateName)) throw new InvalidPlayerNameException();
-                                    
+                                    if (!InputCheck.validateInputName(updateName))
+                                        throw new InvalidPlayerNameException();
+
                                     // update database
                                     PlayerDAOImpl playerDAO = new PlayerDAOImpl();
                                     playerDAO.updatePlayerName(new Player(playerName), updateName);
@@ -224,16 +224,16 @@ public class HistoryUI extends JPanel {
                                     // update name label
                                     updateNameTextField.setText(updateName);
                                     playerNameLabel[0].setText(updateName);
-                                
+
                                 } catch (PlayerAlreadyExistException exc) {
                                     updateNameTextField.setText("Player exists");
                                     updateNameTextField.setBackground(Constants.RED_COLOR);
-                                
+
                                 } catch (InvalidPlayerNameException exc) {
                                     updateNameTextField.setText("Invalid name");
                                     updateNameTextField.setBackground(Constants.RED_COLOR);
                                 }
-                                
+
                             };
                         });
 
@@ -260,16 +260,15 @@ public class HistoryUI extends JPanel {
                         deletePlayerButton.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                 PlayerDAOImpl playerDAO = new PlayerDAOImpl();
-                                
+
                                 // fetch player ID and remove it from database
                                 int playerId = playerDAO.getPlayerIdByName(new Player(playerName));
-                                playerDAO.deletePlayer(playerId); 
-                                    
+                                playerDAO.deletePlayer(playerId);
+
                                 // remove the player card
                                 playerCards.remove(singleRecordPanel);
                                 playerCards.revalidate();
                                 playerCards.repaint();
-
 
                             };
                         });
@@ -279,8 +278,7 @@ public class HistoryUI extends JPanel {
                         singleRecordPanel.add(updatePlayerButton);
                         singleRecordPanel.add(deletePlayerButton);
 
-
-                    }else{
+                    } else {
                         // singleRecordPanel.remove(1);
                         singleRecordPanel.setPreferredSize(new Dimension(270, 40));
                         totalHeight[0] -= 60;
@@ -291,52 +289,51 @@ public class HistoryUI extends JPanel {
                     playerCards.repaint();
                 }
 
-
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     singleRecordPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
                     Border outerBorder = BorderFactory.createLineBorder(Constants.LIGHT_GREEN_COLOR, 1);
                     singleRecordPanel.setBorder(outerBorder);
                 }
-    
+
                 @Override
                 public void mouseExited(MouseEvent e) {
                     singleRecordPanel.setBorder(null);
                 }
             });
-    
+
             playerNameLabel[0].setForeground(Constants.LIGHT_CREAM_COLOR);
             playerNameLabel[0].setFont(Constants.getRegularFont(13));
             playerNameLabel[0].setBounds(11, 11, 93, 20);
-    
+
             JLabel playerLastGameDate = new JLabel(quizDate);
             playerLastGameDate.setForeground(Constants.LIGHT_CREAM_COLOR);
             playerLastGameDate.setFont(Constants.getRegularFont(13));
             playerLastGameDate.setBounds(115, 11, 93, 20);
-    
+
             String scoreText = score + "/" + questionsAsked;
             JLabel playerScoreLabel = new JLabel(scoreText);
             playerScoreLabel.setForeground(Constants.LIGHT_CREAM_COLOR);
             playerScoreLabel.setFont(Constants.getRegularFont(13));
             playerScoreLabel.setBounds(230, 11, 40, 20);
-    
+
             // Change color based on score
             if ((Integer.parseInt(record.get(3)) / (double) questionsAsked) >= 0.5) {
                 playerScoreLabel.setForeground(Constants.LIGHT_GREEN_COLOR);
             } else {
                 playerScoreLabel.setForeground(Constants.RED_COLOR_2);
             }
-    
+
             singleRecordPanel.add(playerNameLabel[0]);
             singleRecordPanel.add(playerLastGameDate);
             singleRecordPanel.add(playerScoreLabel);
-    
+
             playerCards.add(singleRecordPanel);
 
             // Calculate the total height
             totalHeight[0] += 50; // 40 for panel height + 10 for spacing
         }
-    
+
         playerCards.setPreferredSize(new Dimension(245, totalHeight[0])); // Set preferred size based on total height
         playerCards.revalidate();
         playerCards.repaint();

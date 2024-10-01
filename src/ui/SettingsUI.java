@@ -22,10 +22,10 @@ import utils.Constants;
 import models.Category;
 import models.Quiz;
 
-public class SettingsUI extends JPanel{
+public class SettingsUI extends JPanel {
     private ImageIcon uncheckedIcon = new ImageIcon(Constants.UNCHECKED_ICON);
     private ImageIcon checkedIcon = new ImageIcon(Constants.CHECKED_ICON);
-    
+
     private Image scaledUnchecked = uncheckedIcon.getImage().getScaledInstance(13, 13, Image.SCALE_SMOOTH);
     private Image scaledChecked = checkedIcon.getImage().getScaledInstance(13, 13, Image.SCALE_SMOOTH);
 
@@ -36,16 +36,15 @@ public class SettingsUI extends JPanel{
     private JCheckBox musicCategoryCBox = null;
 
     private PreferencesManager preferencesManager = new PreferencesManager();
-    
+
     // property states
     private boolean generalCategoryState = preferencesManager.getGeneralCategory();
     private boolean musicCategoryState = preferencesManager.getMusicCategory();
     private boolean movieCategoryState = preferencesManager.getMovieCategory();
     private boolean mathCategoryState = preferencesManager.getMathCategory();
 
-
     // reverts all changes made in the setting to their default value
-    private void resetSettings(){
+    private void resetSettings() {
         // set question size back to 4
         sizeInputField.setText("4");
         // Quiz.setQuestionSize(4);
@@ -64,7 +63,7 @@ public class SettingsUI extends JPanel{
         preferencesManager.setQuestionSize(4);
     }
 
-    public SettingsUI(){
+    public SettingsUI() {
         setBackground(Constants.GREEN_COLOR);
         setLayout(null);
 
@@ -74,7 +73,7 @@ public class SettingsUI extends JPanel{
         settingTextLabel.setFont(Constants.getBoldFont(20));
         settingTextLabel.setBounds(45, 44, 100, 30);
         settingTextLabel.setForeground(Constants.LIGHT_GREEN_COLOR);
-        
+
         JSeparator horizontalSeparator = new JSeparator();
         horizontalSeparator.setBounds(41, 79, 269, 1);
         horizontalSeparator.setForeground(Constants.LIGHT_CREAM_COLOR);
@@ -85,14 +84,14 @@ public class SettingsUI extends JPanel{
         availableCategoriesText.setForeground(Constants.LIGHT_CREAM_COLOR);
         availableCategoriesText.setBounds(42, 80, 100, 12);
         availableCategoriesText.setFont(Constants.getRegularFont(8));
-        
+
         // image
         ImageIcon acImg = ImageLoadandResize.loadAndResizeIcon(Constants.CATEGORY_IMG_SRC, 32, 32);
         JLabel availableCategoriesIMG = new JLabel(acImg);
         availableCategoriesIMG.setBounds(35, 98, 50, 32);
 
         Cursor hoverCursor = new Cursor(Cursor.HAND_CURSOR);
-        
+
         // checkboxes
         // general category
         generalCategoryCBox = new JCheckBox("General");
@@ -111,8 +110,10 @@ public class SettingsUI extends JPanel{
         generalCategoryCBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (generalCategoryCBox.isSelected()) preferencesManager.setGeneralCategory(true);
-                else preferencesManager.setGeneralCategory(false);
+                if (generalCategoryCBox.isSelected())
+                    preferencesManager.setGeneralCategory(true);
+                else
+                    preferencesManager.setGeneralCategory(false);
             }
 
         });
@@ -136,12 +137,13 @@ public class SettingsUI extends JPanel{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (moviesCategoryCBox.isSelected()) Quiz.addToCategory(obj);
-                else Quiz.removeFromCategory(obj);
+                if (moviesCategoryCBox.isSelected())
+                    Quiz.addToCategory(obj);
+                else
+                    Quiz.removeFromCategory(obj);
 
             }
         });
-
 
         // math category
         mathCategoryCBox = new JCheckBox("Math");
@@ -158,11 +160,13 @@ public class SettingsUI extends JPanel{
         mathCategoryCBox.setRolloverEnabled(mathCategoryState);
 
         mathCategoryCBox.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (mathCategoryCBox.isSelected()) preferencesManager.setMathCategory(true);
-                else preferencesManager.setMathCategory(false);
+                if (mathCategoryCBox.isSelected())
+                    preferencesManager.setMathCategory(true);
+                else
+                    preferencesManager.setMathCategory(false);
 
             }
         });
@@ -184,8 +188,10 @@ public class SettingsUI extends JPanel{
         musicCategoryCBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (musicCategoryCBox.isSelected()) preferencesManager.setMusicCategory(true);
-                else preferencesManager.setMusicCategory(false);
+                if (musicCategoryCBox.isSelected())
+                    preferencesManager.setMusicCategory(true);
+                else
+                    preferencesManager.setMusicCategory(false);
 
             }
         });
@@ -201,11 +207,11 @@ public class SettingsUI extends JPanel{
         questionSizeLabel.setForeground(Constants.LIGHT_CREAM_COLOR);
         questionSizeLabel.setBounds(44, 203, 160, 12);
         questionSizeLabel.setFont(Constants.getRegularFont(8));
-        
+
         ImageIcon qsImg = ImageLoadandResize.loadAndResizeIcon(Constants.LIST_IMG_SRC, 32, 32);
         JLabel questionSizeImage = new JLabel(qsImg);
         questionSizeImage.setBounds(35, 224, 50, 32);
-        
+
         sizeInputField = new JTextField();
         sizeInputField.setText("4");
         sizeInputField.setBackground(Constants.LIGHT_GREEN_COLOR);
@@ -282,7 +288,6 @@ public class SettingsUI extends JPanel{
         resetSettingButton.setBorder(null);
         resetSettingButton.setBounds(120, 359, 120, 20);
         // deletePlayerButton.setContentAreaFilled(false);
-
 
         resetSettingButton.addMouseListener(new MouseAdapter() {
             @Override

@@ -14,12 +14,12 @@ public class ImageLoadandResize {
         try {
             BufferedImage bufferedImage = ImageIO.read(new File(IMG));
             Image image = bufferedImage.getScaledInstance(w, h, Image.SCALE_SMOOTH);
-            
+
             return new ImageIcon(image);
 
         } catch (IOException e) {
             e.printStackTrace();
-            return null; 
+            return null;
         }
     }
 }

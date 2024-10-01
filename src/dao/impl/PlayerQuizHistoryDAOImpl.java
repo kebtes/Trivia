@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerQuizHistoryDAOImpl implements PlayerQuizHistoryDAO{
+public class PlayerQuizHistoryDAOImpl implements PlayerQuizHistoryDAO {
     PlayerDAOImpl playerDAO = new PlayerDAOImpl();
 
     @Override
@@ -24,7 +24,7 @@ public class PlayerQuizHistoryDAOImpl implements PlayerQuizHistoryDAO{
         try {
             connection = DBConnection.getConnection();
             statement = connection.prepareStatement(query);
-            
+
             statement.setInt(1, playerId);
             statement.setDate(2, quizDate);
             statement.setInt(3, score);
@@ -34,13 +34,13 @@ public class PlayerQuizHistoryDAOImpl implements PlayerQuizHistoryDAO{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
     }
 
     @Override
     public void updatePlayerHistory(Player player, int newScore) {
         String query = "UPDATE PlayerQuizHistory SET score = score + ?, quiz_date = ? WHERE player_id = ?";
-        
+
         int playerId = playerDAO.getPlayerIdByName(player);
 
         try {
@@ -58,7 +58,7 @@ public class PlayerQuizHistoryDAOImpl implements PlayerQuizHistoryDAO{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
     }
 
     @Override
@@ -77,63 +77,66 @@ public class PlayerQuizHistoryDAOImpl implements PlayerQuizHistoryDAO{
 
             rs = stmt.executeQuery();
 
-            if (rs.next()) exists = true;
+            if (rs.next())
+                exists = true;
 
         } catch (Exception e) {
             e.printStackTrace();
-        
-        }finally {
+
+        } finally {
             try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
+                if (rs != null)
+                    rs.close();
+                if (stmt != null)
+                    stmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        
+
         return exists;
     }
 
     @Override
     public List<List<String>> getHistory() {
         List<List<String>> output = new ArrayList<>();
-    
+
         String query = "SELECT p.player_name, p.quizzes_played, pq.quiz_date, pq.score " +
-                       "FROM PlayerQuizHistory pq " +
-                       "JOIN Players p ON pq.player_id = p.player_id";
-    
+                "FROM PlayerQuizHistory pq " +
+                "JOIN Players p ON pq.player_id = p.player_id";
+
         try {
             Connection connection = DBConnection.getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet resultSet = stmt.executeQuery();
-    
+
             while (resultSet.next()) {
                 List<String> playerRecord = new ArrayList<>();
-    
+
                 // get player name
                 String playerName = resultSet.getString("player_name");
                 playerRecord.add(playerName);
-    
+
                 // get quizzes played
                 int quizzesPlayed = resultSet.getInt("quizzes_played");
                 playerRecord.add(String.valueOf(quizzesPlayed));
-    
+
                 // get quiz date
                 Date quizDate = resultSet.getDate("quiz_date");
                 playerRecord.add(String.valueOf(quizDate));
-    
+
                 // get score
                 int score = resultSet.getInt("score");
                 playerRecord.add(String.valueOf(score));
-    
+
                 // add the player record to the output list
                 output.add(playerRecord);
             }
-    
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    
+
         return output;
     }
 
@@ -146,7 +149,7 @@ public class PlayerQuizHistoryDAOImpl implements PlayerQuizHistoryDAO{
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet resultSet = stmt.executeQuery();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 playerIds.add(resultSet.getInt(1));
             }
 
@@ -156,7 +159,7 @@ public class PlayerQuizHistoryDAOImpl implements PlayerQuizHistoryDAO{
         }
 
         return playerIds;
-        
+
     }
 
     @Override
@@ -165,19 +168,19 @@ public class PlayerQuizHistoryDAOImpl implements PlayerQuizHistoryDAO{
         List<Integer> playerIDs = getIdsFromHistory();
         PlayerDAOImpl playerDAOImpl = new PlayerDAOImpl();
 
-        
         try {
             Connection connection = DBConnection.getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.execute();
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        // this needs to be done at last so that "foreign key policy error" doesnt come to light
+        // this needs to be done at last so that "foreign key policy error" doesnt come
+        // to light
         // i cried cuz of this FYI
-        for (int playerId: playerIDs){
+        for (int playerId : playerIDs) {
             playerDAOImpl.deletePlayer(playerId);
         }
     }
@@ -192,13 +195,14 @@ public class PlayerQuizHistoryDAOImpl implements PlayerQuizHistoryDAO{
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet resultSet = stmt.executeQuery();
 
-            if (resultSet.next()) historyCount = resultSet.getInt(1);
-            
+            if (resultSet.next())
+                historyCount = resultSet.getInt(1);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return historyCount;
     }
-    
+
 }

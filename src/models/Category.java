@@ -4,24 +4,26 @@ import java.util.Objects;
 
 public class Category {
     private String categoryTitle;
-    
-    public Category(String categoryTitle){
+
+    public Category(String categoryTitle) {
         this.categoryTitle = categoryTitle;
     }
 
-    public String getCategoryTitle(){
+    public String getCategoryTitle() {
         return this.categoryTitle;
     }
 
     @Override
     public boolean equals(Object obj) {
         // if the object is literally this one
-        if (this == obj) return true; 
+        if (this == obj)
+            return true;
 
         // if the object we comparing this instance with is either null,
         // or isn't from the same class this one is from
-        if (obj == null || getClass() != obj.getClass()) return false;
-        
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
         Category category = (Category) obj;
         return Objects.equals(categoryTitle, category.categoryTitle);
     }
@@ -33,7 +35,6 @@ public class Category {
         return Objects.hash(categoryTitle);
     }
 }
-
 
 /*
  * a = category("math")

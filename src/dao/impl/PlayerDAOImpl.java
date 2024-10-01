@@ -9,14 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import utils.DBConnection;
 
-public class PlayerDAOImpl implements PlayerDAO{
+public class PlayerDAOImpl implements PlayerDAO {
     @Override
     public void addPlayer(Player player, int score) {
         String query = "INSERT INTO Players (player_name, total_score, quizzes_played) VALUES (?, ?, ?)";
-        
+
         Connection connection;
         PreparedStatement stmt;
-        
+
         try {
             connection = DBConnection.getConnection();
             stmt = connection.prepareStatement(query);
@@ -26,11 +26,11 @@ public class PlayerDAOImpl implements PlayerDAO{
             stmt.setInt(3, 1);
 
             stmt.executeUpdate();
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
     }
 
     @Override
@@ -42,7 +42,7 @@ public class PlayerDAOImpl implements PlayerDAO{
             Connection connection = DBConnection.getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, player.getPlayerName());
-            
+
             ResultSet resultSet = stmt.executeQuery();
 
             if (resultSet.next()) {
@@ -52,7 +52,7 @@ public class PlayerDAOImpl implements PlayerDAO{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return playerId;
     }
 
@@ -89,25 +89,25 @@ public class PlayerDAOImpl implements PlayerDAO{
             e.printStackTrace();
 
         }
-        
+
     }
 
-    public boolean playerExists(String playerName){
+    public boolean playerExists(String playerName) {
         String query = "SELECT COUNT(*) FROM Players WHERE player_name = ?";
 
-        try(Connection connection = utils.DBConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query)){
-            
+        try (Connection connection = utils.DBConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+
             statement.setString(1, playerName);
 
-            try (ResultSet resultSet = statement.executeQuery()){
-                if (resultSet.next()){
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
                     int count = resultSet.getInt(1);
                     return count > 0;
                 }
             }
-                  
-        }catch (SQLException e){
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -117,7 +117,7 @@ public class PlayerDAOImpl implements PlayerDAO{
     @Override
     public int getPlayerScore(Player player) {
         String query = "SELECT score FROM Players WHERE player_id = ?";
-        
+
         int playerId = getPlayerIdByName(player);
         int scoreOutput = -1;
 
@@ -128,7 +128,8 @@ public class PlayerDAOImpl implements PlayerDAO{
             stmt.setInt(1, playerId);
 
             ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) scoreOutput = resultSet.getInt(3);
+            if (resultSet.next())
+                scoreOutput = resultSet.getInt(3);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -153,7 +154,7 @@ public class PlayerDAOImpl implements PlayerDAO{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
     }
 
 }

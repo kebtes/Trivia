@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class QuestionDAOImpl implements QuestionDAO{
+public class QuestionDAOImpl implements QuestionDAO {
     @Override
     public Questions getQuestionByCategory(Category category) {
         List<Questions> questions = new ArrayList<>();
@@ -34,7 +34,7 @@ public class QuestionDAOImpl implements QuestionDAO{
 
             resultSet = statement.executeQuery();
 
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 // int questionId = resultSet.getInt("question_id");
                 String questionText = resultSet.getString("question_text");
                 String correctAnswer = resultSet.getString("correct_answer");
@@ -42,51 +42,50 @@ public class QuestionDAOImpl implements QuestionDAO{
                 String questionAskType = resultSet.getString("question_ask_type");
                 String questionChoices = resultSet.getString("question_choices");
 
-                
                 Questions question = null;
-                if (questionAskType.equals("MCQ")){
+                if (questionAskType.equals("MCQ")) {
                     List<String> questionChoicesToPass = Arrays.asList(questionChoices.split(","));
                     List<String> correctAnswerMCQ = Arrays.asList(correctAnswer.split(","));
-                    
+
                     question = new MultipleAnswerQuestion(
-                        questionText,
-                        cate_title,
-                        questionAskType,
-                        questionChoicesToPass,
-                        correctAnswerMCQ
-                    );
-                
-                }else if (questionAskType.equals("FBQ")) {
+                            questionText,
+                            cate_title,
+                            questionAskType,
+                            questionChoicesToPass,
+                            correctAnswerMCQ);
+
+                } else if (questionAskType.equals("FBQ")) {
                     question = new FillTheBlankQuestion(
-                        questionText,
-                        cate_title,
-                        questionAskType,
-                        correctAnswer
-                    );
+                            questionText,
+                            cate_title,
+                            questionAskType,
+                            correctAnswer);
                 }
-                
+
                 questions.add(question);
             }
 
             // returns a question at the random index
-            if (!questions.isEmpty()){
+            if (!questions.isEmpty()) {
                 return questions.get(0);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        
+
         } finally {
             try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
-            
-            } catch (SQLException e){
+                if (resultSet != null)
+                    resultSet.close();
+                if (statement != null)
+                    statement.close();
+
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
         return null;
-    
-}
+
+    }
 }

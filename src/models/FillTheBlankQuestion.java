@@ -3,15 +3,16 @@ package models;
 import java.util.List;
 import java.util.Arrays;
 
-public class FillTheBlankQuestion extends Questions{
+public class FillTheBlankQuestion extends Questions {
     private String correctAnswer;
-    
-    public FillTheBlankQuestion(String questionText, String questionCategory, String questionType, String correctAnswer){
+
+    public FillTheBlankQuestion(String questionText, String questionCategory, String questionType,
+            String correctAnswer) {
         super(questionText, questionCategory, questionType);
         this.correctAnswer = correctAnswer;
     }
 
-    public List<String> getCorrectAnswer(){
+    public List<String> getCorrectAnswer() {
         return Arrays.asList(correctAnswer);
     }
 
@@ -22,5 +23,4 @@ public class FillTheBlankQuestion extends Questions{
         return userAnswer.equals(correctAnswer);
     }
 
-    
 }

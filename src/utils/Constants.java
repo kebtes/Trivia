@@ -3,7 +3,7 @@ package utils;
 import java.awt.Color;
 import java.awt.Font;
 
-public class Constants{
+public class Constants {
     // file source constants
     public static String BACKGROUND_IMAGE_SRC = "src\\images\\background.jpg";
     public static String LOGO_SRC = "src\\images\\logo.png";
@@ -11,7 +11,7 @@ public class Constants{
     public static String LIST_IMG_SRC = "src\\images\\icons\\list.png";
     public static String UNCHECKED_ICON = "src\\images\\icons\\unchecked.png";
     public static String CHECKED_ICON = "src\\images\\icons\\checkbox.png";
-    
+
     // color constants
     public static Color LIGHT_CREAM_COLOR = new Color(249, 247, 232);
     public static Color CREAM_COLOR = new Color(243, 239, 212);
@@ -21,26 +21,24 @@ public class Constants{
     public static Color RED_COLOR = new Color(255, 111, 111);
     public static Color RED_COLOR_2 = new Color(255, 169, 111);
 
-
-    public static Font getRegularFont(int size){
+    public static Font getRegularFont(int size) {
         return new Font("Poppins SemiBold", Font.PLAIN, size);
     }
 
-    public static Font getBoldFont(int size){
+    public static Font getBoldFont(int size) {
         return new Font("Poppins ExtraBold", Font.BOLD, size);
     }
 
-    public static Font getArialFont(int size){
+    public static Font getArialFont(int size) {
         return new Font("Arial", Font.BOLD, size);
     }
 
     // public static Font getLighFont(int size){
-    //     return new Font("Rowdies-Light", Font.PLAIN, size);
+    // return new Font("Rowdies-Light", Font.PLAIN, size);
     // }
 
     // public static Font getExtraBoldFont(int size){
-    //     return new Font("Rowdies-Light", Font.PLAIN, size);
+    // return new Font("Rowdies-Light", Font.PLAIN, size);
     // }
-
 
 }

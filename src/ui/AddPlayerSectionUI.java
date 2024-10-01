@@ -27,24 +27,24 @@ import dao.impl.PlayerDAOImpl;
 import java.util.List;
 import java.util.ArrayList;
 
-public class AddPlayerSectionUI extends JPanel{
+public class AddPlayerSectionUI extends JPanel {
     JPanel playerCardDisplay = new JPanel();
     List<Player> currentPlayers;
     MainUI mainUI;
     PlayerDAOImpl playerDB = new PlayerDAOImpl();
 
-    public List<Player> getAllCurrentPlayers(){
+    public List<Player> getAllCurrentPlayers() {
         return currentPlayers;
     }
 
-    private JPanel createAndAddPlayerCardToPanel(Player player){
+    private JPanel createAndAddPlayerCardToPanel(Player player) {
         JPanel outputPanel = new JPanel();
         outputPanel.setPreferredSize(new java.awt.Dimension(261, 23));
         outputPanel.setBackground(Constants.GREEN_COLOR);
         outputPanel.setLayout(null);
 
         String player_name = player.getPlayerName();
-        
+
         JLabel nameLabel = new JLabel();
         nameLabel.setText(player_name);
         nameLabel.setBackground(Constants.LIGHT_CREAM_COLOR);
@@ -87,13 +87,12 @@ public class AddPlayerSectionUI extends JPanel{
                 removeButton.setFont(Constants.getRegularFont(16));
             }
         });
-    
 
         outputPanel.add(nameLabel);
         outputPanel.add(removeButton);
-        
+
         return outputPanel;
-    } 
+    }
 
     public AddPlayerSectionUI(MainUI mainUI) {
         removeAll();
@@ -103,21 +102,21 @@ public class AddPlayerSectionUI extends JPanel{
         this.mainUI = mainUI;
         setLayout(null);
         setBackground(utils.Constants.GREEN_COLOR);
-        
+
         // add players header text
         JLabel addPlayersText = new JLabel();
         addPlayersText.setText("Add Players");
         addPlayersText.setFont(Constants.getBoldFont(16));
         addPlayersText.setForeground(Constants.LIGHT_GREEN_COLOR);
         addPlayersText.setBounds(45, 47, 119, 24);
-        
+
         // max of three players label
         JLabel msg = new JLabel();
         msg.setText("A MAXIMUM OF 3 PLAYERS");
         msg.setFont(utils.Constants.getRegularFont(10));
         msg.setForeground(Constants.LIGHT_CREAM_COLOR);
         msg.setBounds(45, 71, 145, 15);
-        
+
         // label to show error message and successful verdicts
         JLabel verdictLabel = new JLabel();
         verdictLabel.setText("");
@@ -125,7 +124,7 @@ public class AddPlayerSectionUI extends JPanel{
         verdictLabel.setBounds(45, 354, 150, 15);
         verdictLabel.setForeground(Constants.RED_COLOR);
 
-        JTextField nameInputField = new JTextField("Type player name here...",140);
+        JTextField nameInputField = new JTextField("Type player name here...", 140);
         nameInputField.setBackground(Constants.LIGHT_CREAM_COLOR);
         nameInputField.setForeground(Constants.GREEN_COLOR);
         nameInputField.setFont(Constants.getRegularFont(10));
@@ -173,7 +172,6 @@ public class AddPlayerSectionUI extends JPanel{
             }
         });
 
-
         addPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -187,38 +185,38 @@ public class AddPlayerSectionUI extends JPanel{
                     }
 
                     String inputName = nameInputField.getText().strip();
-                    
+
                     // validate input name
-                    if (!InputCheck.validateInputName(inputName)){
+                    if (!InputCheck.validateInputName(inputName)) {
                         throw new InvalidPlayerNameException();
                     }
-                    
+
                     Player new_player = new Player(inputName);
-                    
+
                     // check if player already exists
-                    if (currentPlayers.contains(new_player)){
+                    if (currentPlayers.contains(new_player)) {
                         throw new PlayerAlreadyExistException();
                     }
 
                     currentPlayers.add(new_player);
                     JPanel newPlayerPanel = createAndAddPlayerCardToPanel(new_player);
                     playerCardDisplay.add(newPlayerPanel);
-                    
-                    playerCardDisplay.revalidate(); 
+
+                    playerCardDisplay.revalidate();
                     playerCardDisplay.repaint();
-                    
+
                     verdictLabel.setText("Player added successfuly");
                     verdictLabel.setForeground(Constants.LIGHT_GREEN_COLOR);
-                    
-                }catch (InvalidPlayerNameException exc) {
+
+                } catch (InvalidPlayerNameException exc) {
                     verdictLabel.setText("Invalid player name, try again!");
                     verdictLabel.setForeground(Color.RED);
-                    
-                }catch (PlayerAlreadyExistException exc){
+
+                } catch (PlayerAlreadyExistException exc) {
                     verdictLabel.setText("Player already in game!");
                     verdictLabel.setForeground(Color.RED);
 
-                }finally{
+                } finally {
                     nameInputField.setText("Type player name here...");
 
                 }
@@ -237,24 +235,23 @@ public class AddPlayerSectionUI extends JPanel{
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                    if (currentPlayers.size() == 0){
+                try {
+                    if (currentPlayers.size() == 0) {
                         throw new NotEnoughPlayersException();
                     }
-                    
+
                     // WHAT A SHITTTTYY BUG THIS WAS OMFG
                     // for (Player p: currentPlayers)
-                    //     playerDB.addPlayer(p);
+                    // playerDB.addPlayer(p);
 
                     mainUI.showComponent("QuestionUI", currentPlayers);
 
-
-                }catch (NotEnoughPlayersException exc){
+                } catch (NotEnoughPlayersException exc) {
                     verdictLabel.setText("Not enough players...");
                     verdictLabel.setForeground(Color.RED);
-                
+
                 }
-                
+
             }
         });
 
@@ -275,7 +272,6 @@ public class AddPlayerSectionUI extends JPanel{
         JSeparator horizontalSeparator = new JSeparator();
         horizontalSeparator.setBounds(45, 146, 262, 1);
         horizontalSeparator.setForeground(Constants.LIGHT_GREEN_COLOR);
-
 
         add(addPlayersText);
         add(nameInputField);

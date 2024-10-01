@@ -14,13 +14,13 @@ import models.Quiz;
 import utils.Constants;
 import utils.ImagePanel;
 
-public class MainUI{
+public class MainUI {
     private CardLayout cardLayout;
     private JPanel cardPanel;
     Quiz quiz;
 
     // overloaded methods to show component from the cardlayout
-    public void showComponent(String comp){
+    public void showComponent(String comp) {
         cardLayout.show(cardPanel, comp);
     }
 
@@ -31,14 +31,14 @@ public class MainUI{
         cardLayout.show(cardPanel, comp);
     }
 
-    public void showComponent(String comp, Quiz quiz){
+    public void showComponent(String comp, Quiz quiz) {
         if (comp.equals("ResultUI")) {
             cardPanel.add(new ResultsUI(this, quiz), "ResultUI");
         }
         cardLayout.show(cardPanel, comp);
     }
 
-    public MainUI(){
+    public MainUI() {
         JFrame mainFrame = new JFrame();
         mainFrame.setSize(785, 530);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +49,7 @@ public class MainUI{
         ImageIcon icon = new ImageIcon(Constants.LOGO_SRC);
         mainFrame.setIconImage(icon.getImage());
         mainFrame.setTitle("Trivia");
-        
+
         // this panel for the background image
         ImagePanel backgroundPanel = new ImagePanel(utils.Constants.BACKGROUND_IMAGE_SRC);
         backgroundPanel.setLayout(null);
@@ -61,10 +61,10 @@ public class MainUI{
         cardPanel.setLayout(cardLayout);
         // cardPanel.setBackground(utils.Constants.GREEN_COLOR);
         cardPanel.setBounds(
-            (mainFrame.getWidth() - 340) / 2, // Center horizontally
-            25, // Center vertically (subtract footer height)
-            340, // Width
-            396  // Height
+                (mainFrame.getWidth() - 340) / 2, // Center horizontally
+                25, // Center vertically (subtract footer height)
+                340, // Width
+                396 // Height
         );
 
         // PAGES
@@ -72,13 +72,13 @@ public class MainUI{
         cardPanel.add(new AddPlayerSectionUI(this), "AddPlayerUI");
         cardPanel.add(new SettingsUI(), "SettingsUI");
         cardPanel.add(new HistoryUI(), "HistoryUI");
-        
+
         // panel for the buttons at the footer
         JPanel footerPanel = new JPanel();
         footerPanel.setLayout(null);
         footerPanel.setBackground(utils.Constants.LIGHT_CREAM_COLOR);
         footerPanel.setBounds(0, 483, 785, 40);
-        
+
         // buttons
         JButton historyButton = new JButton("HISTORY");
         historyButton.setBackground(utils.Constants.LIGHT_GREEN_COLOR);
@@ -116,19 +116,18 @@ public class MainUI{
         settingsButton.setFocusPainted(false);
         // settingsButton.setContentAreaFilled(false);
 
-
         // ALL ACTION LISTNERS
         historyButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 historyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
-        
+
             // @Override
             // public void mouseExited(MouseEvent e) {
-            //     if (!historyButton.getBackground().equals(utils.Constants.GREEN_COLOR)) {
-            //         historyButton.setBackground(utils.Constants.LIGHT_GREEN_COLOR);
-            //     }
+            // if (!historyButton.getBackground().equals(utils.Constants.GREEN_COLOR)) {
+            // historyButton.setBackground(utils.Constants.LIGHT_GREEN_COLOR);
+            // }
             // }
         });
 
@@ -147,20 +146,19 @@ public class MainUI{
             historyButton.setBackground(utils.Constants.LIGHT_GREEN_COLOR);
             settingsButton.setBackground(utils.Constants.LIGHT_GREEN_COLOR);
         });
-        
-        
+
         gameButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 gameButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 // gameButton.setBackground(utils.Constants.GREEN_COLOR);
             }
-        
+
             // @Override
             // public void mouseExited(MouseEvent e) {
-            //     if (!gameButton.getBackground().equals(utils.Constants.GREEN_COLOR)) {
-            //         gameButton.setBackground(utils.Constants.LIGHT_GREEN_COLOR);
-            //     }
+            // if (!gameButton.getBackground().equals(utils.Constants.GREEN_COLOR)) {
+            // gameButton.setBackground(utils.Constants.LIGHT_GREEN_COLOR);
+            // }
             // }
         });
 
@@ -171,20 +169,18 @@ public class MainUI{
             settingsButton.setBackground(utils.Constants.GREEN_COLOR);
         });
 
-        
-        
         settingsButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 settingsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 // settingsButton.setBackground(utils.Constants.GREEN_COLOR);
             }
-        
+
             // @Override
             // public void mouseExited(MouseEvent e) {
-            //     if (!settingsButton.getBackground().equals(utils.Constants.GREEN_COLOR)) {
-            //         settingsButton.setBackground(utils.Constants.LIGHT_GREEN_COLOR);
-            //     }
+            // if (!settingsButton.getBackground().equals(utils.Constants.GREEN_COLOR)) {
+            // settingsButton.setBackground(utils.Constants.LIGHT_GREEN_COLOR);
+            // }
             // }
         });
 

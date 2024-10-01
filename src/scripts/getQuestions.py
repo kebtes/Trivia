@@ -13,25 +13,25 @@ _totalCall = 0
 _successes = 0
 
 # mssql connection parameters
-_SERVER = "KIBREWOSSEN\\MSSQLSERVER01"
-_DATABASE = "TRIVIA"
-_USER = "trivia_user"
-_PASS = "trivia"
+SERVER = "KIBREWOSSEN\\MSSQLSERVER01"
+DATABASE = "TRIVIA"
+USER = "trivia_user"
+PASS = "trivia"
 
 # api urls for each category
-_QUESTION_SIZE = 30
-_GENERAL_API_URL = f"https://opentdb.com/api.php?amount={_QUESTION_SIZE}&category=9&type=multiple"
-_MUSIC_API_URL = f"https://opentdb.com/api.php?amount={_QUESTION_SIZE}&category=12&type=multiple"
-_MOVIE_API_URL = f"https://opentdb.com/api.php?amount={_QUESTION_SIZE}&category=11&type=multiple"
-_MATH_API_URL = f"https://opentdb.com/api.php?amount={_QUESTION_SIZE}&category=19&type=multiple"
+QUESTION_SIZE = 30
+GENERAL_API_URL = f"https://opentdb.com/api.php?amount={QUESTION_SIZE}&category=9&type=multiple"
+MUSIC_API_URL = f"https://opentdb.com/api.php?amount={QUESTION_SIZE}&category=12&type=multiple"
+MOVIE_API_URL = f"https://opentdb.com/api.php?amount={QUESTION_SIZE}&category=11&type=multiple"
+MATH_API_URL = f"https://opentdb.com/api.php?amount={QUESTION_SIZE}&category=19&type=multiple"
 
-categories = [_GENERAL_API_URL, _MUSIC_API_URL, _MOVIE_API_URL, _MATH_API_URL]
+categories = [GENERAL_API_URL, MUSIC_API_URL, MOVIE_API_URL, MATH_API_URL]
 
 def getConnection() -> Connection:
-    _TRAIL = 3
+    TRAIL = 3
 
     # Connection string
-    connection_string = f"DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={_SERVER};DATABASE={_DATABASE};UID={_USER};PWD={_PASS};Encrypt=yes;TrustServerCertificate=yes;"
+    connection_string = f"DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={SERVER};DATABASE={DATABASE};UID={USER};PWD={PASS};Encrypt=yes;TrustServerCertificate=yes;"
     
     try:
         connection = pyodbc.connect(connection_string)
@@ -39,12 +39,12 @@ def getConnection() -> Connection:
         return connection
     
     except pyodbc.Error as _:
-        if _TRAIL <= 0:
+        if TRAIL <= 0:
             print("Failed connecting to database")
             sys.exit()
 
         time.sleep(1)
-        _TRAIL -= 1
+        TRAIL -= 1
 
 def addToDataBase(response: Response) -> None:
     global _totalCall   

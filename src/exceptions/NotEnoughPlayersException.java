@@ -1,5 +1,6 @@
 package exceptions;
 
-public class NotEnoughPlayersException extends RuntimeException{
-    public NotEnoughPlayersException(){}
+public class NotEnoughPlayersException extends RuntimeException {
+    public NotEnoughPlayersException() {
+    }
 }

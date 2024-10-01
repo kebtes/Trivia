@@ -9,11 +9,11 @@ public class PreferencesManager {
     private Properties properties = new Properties();
     private String propertiesFilePath = "resources\\properties.properties";
 
-    public PreferencesManager(){
+    public PreferencesManager() {
         loadProperties();
     }
-    
-    private void loadProperties(){
+
+    private void loadProperties() {
         try {
             // open prprt file
             FileInputStream input = new FileInputStream(propertiesFilePath);

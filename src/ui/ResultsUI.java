@@ -24,19 +24,18 @@ import models.Player;
 import utils.Constants;
 import utils.PreferencesManager;
 
-
-public class ResultsUI extends JPanel{
+public class ResultsUI extends JPanel {
     private PlayerDAOImpl playerDAO;
     private PlayerQuizHistoryDAOImpl playerQuizHistoryDAO;
     PreferencesManager preferencesManager = new PreferencesManager();
     MainUI mainUI;
 
-    public ResultsUI(MainUI mainUI, Quiz quiz){
+    public ResultsUI(MainUI mainUI, Quiz quiz) {
         this.mainUI = mainUI;
 
         setBackground(Constants.GREEN_COLOR);
         setLayout(null);
-    
+
         // game over text
         JLabel gameOverLabel = new JLabel();
         gameOverLabel.setText("Game Over!");
@@ -65,7 +64,7 @@ public class ResultsUI extends JPanel{
         // handling the players
         List<Player> quizPlayers = quiz.getQuizPlayers();
         System.out.println(quizPlayers);
-        for (Player player: quizPlayers){
+        for (Player player : quizPlayers) {
             String playerName = player.getPlayerName();
             int questionSize = preferencesManager.getQuestionSize();
             int playerScore = player.getPlayerScore();
@@ -73,7 +72,7 @@ public class ResultsUI extends JPanel{
             JPanel playerPanel = new JPanel();
             playerPanel.setBackground(Constants.GREEN_COLOR_2);
             playerPanel.setLayout(null);
-            
+
             JLabel playerNameLabel = new JLabel();
             playerNameLabel.setText(playerName);
             playerNameLabel.setFont(Constants.getBoldFont(13));
@@ -96,8 +95,8 @@ public class ResultsUI extends JPanel{
             }
 
             playerDAO = new PlayerDAOImpl();
-            playerQuizHistoryDAO = new PlayerQuizHistoryDAOImpl();        
-    
+            playerQuizHistoryDAO = new PlayerQuizHistoryDAOImpl();
+
             // updating the database
             // add the player if not already in database
             if (!(playerDAO.playerExists(playerName))) {
@@ -107,12 +106,12 @@ public class ResultsUI extends JPanel{
                 playerDAO.updatePlayerScore(player, player.getPlayerScore());
                 System.out.println(playerScore);
             }
-            
+
             // fetch player id
             int playerId = playerDAO.getPlayerIdByName(player);
-            
+
             // add it to the relation table if player has never played
-            if (!(playerQuizHistoryDAO.checkHistory(playerId))){
+            if (!(playerQuizHistoryDAO.checkHistory(playerId))) {
                 playerQuizHistoryDAO.addPlayerHistory(player, player.getPlayerScore());
             }
             // update the score in the relation table if player had a history
@@ -131,7 +130,8 @@ public class ResultsUI extends JPanel{
         playAgainButton.setBackground(Constants.GREEN_COLOR_2);
         playAgainButton.setForeground(Constants.LIGHT_CREAM_COLOR);
         playAgainButton.setFont(Constants.getRegularFont(15));
-        playAgainButton.setBounds(110, 304, 126, 37);;
+        playAgainButton.setBounds(110, 304, 126, 37);
+        ;
         playAgainButton.setBorder(null);
         playAgainButton.setFocusPainted(false);
         // playAgainButton.setContentAreaFilled(false);
@@ -157,7 +157,7 @@ public class ResultsUI extends JPanel{
                 playAgainButton.setBackground(Constants.GREEN_COLOR_2);
                 playAgainButton.setBorder(null);
             }
-            
+
         });
 
         add(gameResultLable);
