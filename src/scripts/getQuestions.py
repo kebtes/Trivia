@@ -1,4 +1,5 @@
 import time
+import os
 
 import sys
 from html import unescape
@@ -9,14 +10,14 @@ from requests.models import Response
 import pyodbc
 from pyodbc import Connection
 
-_totalCall = 0
-_successes = 0
+totalCall = 0
+successes = 0
 
 # mssql connection parameters
-SERVER = "KIBREWOSSEN\\MSSQLSERVER01"
-DATABASE = "TRIVIA"
-USER = "trivia_user"
-PASS = "trivia"
+SERVER = os.getenv("SERVER")
+DATABASE = os.getenv("DATABASE")
+USER = os.getenv("USER")
+PASS = os.getenv("PASSWORD")
 
 # api urls for each category
 QUESTION_SIZE = 30
@@ -47,8 +48,8 @@ def getConnection() -> Connection:
         TRAIL -= 1
 
 def addToDataBase(response: Response) -> None:
-    global _totalCall   
-    global _successes  
+    global totalCall   
+    global successes  
 
     if not response:
         return
@@ -77,13 +78,13 @@ def addToDataBase(response: Response) -> None:
 
             try:
                 cursor.execute(_QUERY, (questionText, correctAnswer, category, "MCQ", choices))
-                _successes += 1
-                print(f"{_successes} questions added to DB.")
+                successes += 1
+                print(f"{successes} questions added to DB.")
 
             except pyodbc.Error as e:
                 pass
 
-            _totalCall += 1
+            totalCall += 1
 
         # close connection
         connection.commit()
@@ -107,4 +108,4 @@ if __name__ == "__main__":
         response = getResponse(category)
         addToDataBase(response)
 
-    print(f"{_successes}/{_totalCall} questions added!")
+    print(f"{_successes}/{totalCall} questions added!")

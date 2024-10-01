@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=TRIVIA;encrypt=true;trustServerCertificate=true;";
-    private static final String USER = "trivia_user";
-    private static final String PASSWORD = "trivia";
+    private static final String URL = System.getenv("URL");
+    private static final String USER = System.getenv("USER");
+    private static final String PASSWORD = System.getenv("PASSWORD");
 
     private DBConnection() {
     }
